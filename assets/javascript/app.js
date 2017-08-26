@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 	renderButtons();																// Render the buttons at the beginning
 
-	$(document).on("click tap", ".gifSearch", displayGIFInfo);							// When a GIF Item is clicked, display its results
-	$(document).on("click tap", ".gifPic", gifAnimation);
+	$(document).on("click", ".gifSearch", displayGIFInfo);						// When a search term is clicked, display its results
+	$(document).on("click", ".gifPic", gifAnimation);							// When a GIF is clicked, animate it
 	  
 });
