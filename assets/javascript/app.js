@@ -17,7 +17,7 @@ $(document).ready(function(){
 	}
 	
 	
-	// Function to display the GIF information that was searched for
+	// Function to display the GIF results that were searched for
 	
 	function displayGIFInfo() {
 		var gifSubject = $(this).attr("data-gif");																							// For this particular button that was clicked
@@ -28,23 +28,29 @@ $(document).ready(function(){
 			method: "GET"
 		})
 		.done(function(response) {
-			$("#gifDisplayArea").empty();											// Empty the GIF Display Area of any previous searches
-			var results = response.data;											// Set a var to make references easier to the response inforation
+			$("#gifDisplayArea").empty();												// Empty the GIF Display Area of any previous searches
+			var results = response.data;												// Set a var to make references easier to the response inforation
+			console.log(results)
 
-			for (var i = 0; i < results.length; i++) {								// For each item in the results array
-				var gifDiv = $("<div class='gifItem'>");								// Set the beginning of the DIV
+			for (var i = 0; i < results.length; i++) {									// For each item in the results array
+				var gifDiv = $("<div>");												// Set the beginning of the DIV
+				gifDiv.addClass("item");
 
-				var rating = results[i].rating;										// Get the Rating property from the results
+				var rating = results[i].rating;											// Get the Rating property from the results
 
-				var pRating = $("<p>").text("Rating: " + rating);					// Set the paragraph that will hold the Rating
+				var pRating = $("<p>").text("Rating: " + rating);						// Set the paragraph that will hold the Rating
 
-				var gifImage = $("<img>");											// Begin the gifImage variable to be pushed later
-				gifImage.attr("src", results[i].images.fixed_height_still.url);		// Add the source of the still image for the fixed height
+				var gifImage = $("<img>");												// Begin the gifImage variable to be pushed later
+				gifImage.addClass("gifPic");
+				gifImage.attr("src", results[i].images.fixed_height_still.url);			// Add the source of the still image for the fixed height
+				gifImage.attr("data-state", "still");									// Set the animation state to still
+				gifImage.attr("data-still", results[i].images.fixed_height_still.url);	// Set the data-still URL
+				gifImage.attr("data-animate", results[i].images.fixed_height.url);		// Set the data-animate URL
 
-				gifDiv.append(pRating);												// Add the Rating to the GIF DIV
-				gifDiv.append(gifImage);											// Add the GIF Image to the GIF DIV
+				gifDiv.append(pRating);													// Add the Rating to the GIF DIV
+				gifDiv.append(gifImage);												// Add the GIF Image to the GIF DIV
 
-				$("#gifDisplayArea").append(gifDiv);								// Push the new image package to the GIF Display Area
+				$("#gifDisplayArea").append(gifDiv);									// Push the new image package to the GIF Display Area
 			}
 		});
 	}
@@ -57,7 +63,7 @@ $(document).ready(function(){
 
 		for (var i = 0; i < buttonArray.length; i++) {										// For each item in the Button Array
 			var aButton = $("<button>");											// Create a new button
-			aButton.addClass("btn btn-success margin-left gifItem");				// Add the appropriate classes
+			aButton.addClass("btn btn-success margin-left gifSearch");				// Add the appropriate classes
 			aButton.attr("data-gif", buttonArray[i]);								// Add the data-gif attribute
 			aButton.text(buttonArray[i]);											// Add the text to the button
 			$("#gifButtons").append(aButton);										// Add button to the display
@@ -74,9 +80,28 @@ $(document).ready(function(){
 		buttonArray.push(newGIF);													// Push the new button into the array
         renderButtons();															// And render the new list
 	});
+	
+	
+	// Function to animate and still the GIF
+	
+	function gifAnimation() {
+
+		var state = $(this).attr("data-state");
+
+		if (state === "still") {
+			$(this).attr("data-state", "animate");
+			$(this).attr("src", $(this).attr("data-animate"));
+		}
+		else {
+			$(this).attr("data-state", "animate");
+			$(this).attr("src", $(this).attr("data-still"));
+		}
+
+	}
 
 	renderButtons();																// Render the buttons at the beginning
 
-	$(document).on("click", ".gifItem", displayGIFInfo);							// When a GIF Item is clicked, display its results
+	$(document).on("click", ".gifSearch", displayGIFInfo);							// When a GIF Item is clicked, display its results
+	$(document).on("click", ".gifPic", gifAnimation);
 	  
 });
