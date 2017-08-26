@@ -21,7 +21,7 @@ $(document).ready(function(){
 	
 	function displayGIFInfo() {
 		var gifSubject = $(this).attr("data-gif");																							// For this particular button that was clicked
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&limit=10";		// Set the queryURL for the API with a limit of 10
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&limit=10";		// Set the queryURL for the API with a limit of 10
 
 		$.ajax({
 			url: queryURL,
