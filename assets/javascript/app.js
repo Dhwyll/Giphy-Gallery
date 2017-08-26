@@ -78,8 +78,24 @@ $(document).ready(function(){
 
 		var newGIF = $("#gifInput").val().trim();									// Get the search term that was added
 		if (newGIF !== "") {														// If the search term isn't blank...
-			buttonArray.push(newGIF);												// Push the new button into the array...
-			renderButtons();														// And render the new list.		
+			if (buttonArray.indexOf(newGIF) === -1) {									// Then if the search term isn't already in the array
+				buttonArray.push(newGIF);												// Push the new button into the array...
+				renderButtons();														// And render the new list.		
+			}
+		}
+	});
+	
+	$("#removeGIF").on("click", function(event) {
+		event.preventDefault();
+		
+		var oldGIF = $("#gifInput").val().trim();
+		if (oldGIF !== "") {
+			console.log(buttonArray.indexOf(oldGIF));
+			if (buttonArray.indexOf(oldGIF) !== -1) {
+				console.log("I'm inside");
+				buttonArray.splice(buttonArray.indexOf(oldGIF), 1);
+				renderButtons();
+			}
 		}
 	});
 	
@@ -101,7 +117,7 @@ $(document).ready(function(){
 
 	}
 
-	renderButtons();																// Render the buttons at the beginning
+	renderButtons();															// Render the buttons at the beginning
 
 	$(document).on("click", ".gifSearch", displayGIFInfo);						// When a search term is clicked, display its results
 	$(document).on("click", ".gifPic", gifAnimation);							// When a GIF is clicked, animate it
