@@ -61,7 +61,7 @@ $(document).ready(function(){
 	function renderButtons() {
 		$("#gifButtons").empty();													// Empty the GIF Buttons area since we don't want duplicates
 
-		for (var i = 0; i < buttonArray.length; i++) {										// For each item in the Button Array
+		for (var i = 0; i < buttonArray.length; i++) {								// For each item in the Button Array
 			var aButton = $("<button>");											// Create a new button
 			aButton.addClass("btn btn-success margin-left gifSearch");				// Add the appropriate classes
 			aButton.attr("data-gif", buttonArray[i]);								// Add the data-gif attribute
@@ -77,8 +77,10 @@ $(document).ready(function(){
 		event.preventDefault();														// Prevent the Submit button from behaving normally
 
 		var newGIF = $("#gifInput").val().trim();									// Get the search term that was added
-		buttonArray.push(newGIF);													// Push the new button into the array
-        renderButtons();															// And render the new list
+		if (newGIF !== "") {														// If the search term isn't blank...
+			buttonArray.push(newGIF);												// Push the new button into the array...
+			renderButtons();														// And render the new list.		
+		}
 	});
 	
 	
