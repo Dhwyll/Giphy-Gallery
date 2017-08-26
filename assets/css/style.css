@@ -1,0 +1,33 @@
+/* Set the style to border-box */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Put in a dividing line between top row and results section as well as some padding on the bottom */
+
+.row:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+	padding-bottom: 15px;
+}
+
+/* Put in some padding at the top of the last row */
+
+.row:last-child {
+	padding-top: 15px;
+}
+
+/* Add a bit of margin on the left for buttons */
+
+.margin-left {
+	margin-left: 3px;
+}
+
+.item {
+	float:left;
+	padding-right: 10px;
+	padding-bottom: 15px;
+}
