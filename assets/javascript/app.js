@@ -24,7 +24,6 @@ $(document).ready(function(){
 		.done(function(response) {
 			$("#gifDisplayArea").empty();												// Empty the GIF Display Area of any previous searches
 			var results = response.data;												// Set a var to make references easier to the response inforation
-			console.log(results)
 
 			for (var i = 0; i < results.length; i++) {									// For each item in the results array
 				var gifDiv = $("<div>");												// Set the beginning of the DIV
