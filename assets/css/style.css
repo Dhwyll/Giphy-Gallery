@@ -22,8 +22,9 @@ html {
 
 /* Add a bit of margin on the left for buttons */
 
-.margin-left {
-	margin-left: 4px;
+.buttonMargins {
+	margin-right: 4px;
+	margin-bottom: 4px;
 }
 
 /* Styling for a GIF package item */
@@ -42,23 +43,30 @@ html {
 
 /* Styling for the buttons to make them 3-D and have them animate when clicked */
 
-.btn-default,
-.btn-primary,
-.btn-success,
-.btn-info,
-.btn-warning,
-.btn-danger {
+.btn-success {
     -webkit-box-shadow: 2px 2px rgba(0, 0, 0, 0.3);
     -moz-box-shadow:    2px 2px rgba(0, 0, 0, 0.3);
     box-shadow:         2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.btn-default:active,
-.btn-primary:active,
-.btn-success:active,
-.btn-info:active,
-.btn-warning:active,
-.btn-danger:active {
+.btn-success:active {
     margin-top: 2px;
     margin-bottom: -2px;
+}
+
+/* Styling for the text box */
+
+input[type=text] {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+	border-radius: 4px;
+}
+
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
 }

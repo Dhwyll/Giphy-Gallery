@@ -8,20 +8,21 @@
 
 $(document).ready(function(){
 
-	// Create the default button array and push to gifButtons
+	// Create the default button array and define the buttonStyling
 	
-	var buttonArray = ["Cats", "Dogs", "Fails", "Golden Girls"];
-	var buttonStyling = "<button class='btn btn-success margin-left' data-gif='";
-	for (var i = 0; i < buttonArray.length; i++) {
-		$("#gifButtons").append(buttonStyling + buttonArray[i] + "'>" + buttonArray[i] + "</button>");
-	}
+	var buttonArray = ["Cats", "Dogs", "Fail", "Golden Girls"];
+	var buttonStyling = "<button class='btn btn-success buttonMargins' data-gif='";
+	$("#numberLimit").val(10);
 	
 	
 	// Function to display the GIF results that were searched for
 	
 	function displayGIFInfo() {
-		var gifSubject = $(this).attr("data-gif");																							// For this particular button that was clicked
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&limit=10";		// Set the queryURL for the API with a limit of 10
+		var gifSubject = $(this).attr("data-gif");																		// For this particular button that was clicked
+		var gifRating = $("#ratingLimit").val();																		// Get the Rating
+		var gifNumber = $("#numberLimit").val();																	// Get the Number
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q="														// Set the queryURL for the API...
+			+ gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&rating=" + gifRating + "&limit=" + gifNumber;		// with the gifSubject and gifRating and with a limit of 10
 
 		$.ajax({
 			url: queryURL,
@@ -63,7 +64,7 @@ $(document).ready(function(){
 
 		for (var i = 0; i < buttonArray.length; i++) {								// For each item in the Button Array
 			var aButton = $("<button>");											// Create a new button
-			aButton.addClass("btn btn-success margin-left gifSearch");				// Add the appropriate classes
+			aButton.addClass("btn btn-success buttonMargins gifSearch");			// Add the appropriate classes
 			aButton.attr("data-gif", buttonArray[i]);								// Add the data-gif attribute
 			aButton.text(buttonArray[i]);											// Add the text to the button
 			$("#gifButtons").append(aButton);										// Add button to the display
@@ -71,33 +72,48 @@ $(document).ready(function(){
 	}
 
 
+
 	// Function to manage when a GIF search is added
 	
 	$("#addGIF").on("click", function(event) {
-		event.preventDefault();														// Prevent the Submit button from behaving normally
+		event.preventDefault();														// Prevent the Add button from behaving normally
 
 		var newGIF = $("#gifInput").val().trim();									// Get the search term that was added
+		var isMatch = false;														// Assume there is no match
 		if (newGIF !== "") {														// If the search term isn't blank...
-			if (buttonArray.indexOf(newGIF) === -1) {									// Then if the search term isn't already in the array
+			for (var i = 0; i < buttonArray.length; i++) {							// Then for each message in buttonArray
+				if (newGIF.toLowerCase() === buttonArray[i].toLowerCase()) {		// Check to see if there is a match (case insensitive)
+					isMatch = true;													// If so, set isMatch to true
+				}
+			}
+			if (!isMatch) {															// Then if the search term isn't already in the array
 				buttonArray.push(newGIF);												// Push the new button into the array...
 				renderButtons();														// And render the new list.		
 			}
 		}
 	});
+
+
+	// Function to manage when a GIF search is removed
 	
 	$("#removeGIF").on("click", function(event) {
-		event.preventDefault();
+		event.preventDefault();														// Prevent the Remove button from behaving normally
 		
-		var oldGIF = $("#gifInput").val().trim();
-		if (oldGIF !== "") {
-			console.log(buttonArray.indexOf(oldGIF));
-			if (buttonArray.indexOf(oldGIF) !== -1) {
-				console.log("I'm inside");
-				buttonArray.splice(buttonArray.indexOf(oldGIF), 1);
-				renderButtons();
+		var oldGIF = $("#gifInput").val().trim();									// Get the search term to be removed
+		var isMatch = false;														// Assume there is no match
+		if (oldGIF !== "") {														// If the search term isn't blank...
+			for (var i = 0; i < buttonArray.length; i++) {							// Then for each message in button Array
+				if (oldGIF.toLowerCase() === buttonArray[i].toLowerCase()) {		// Check to see if there is a match (case insensitive)
+					isMatch = true;													// If so, set isMatch to true
+				}
+			}
+			if (isMatch) {															// Then if the search term is in the array
+				buttonArray.splice(buttonArray.indexOf(oldGIF), 1);						// Delete the button from the array...
+				renderButtons();														// And render the new list
 			}
 		}
 	});
+
 	
 	
 	// Function to animate and still the GIF
