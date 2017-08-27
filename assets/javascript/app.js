@@ -10,11 +10,12 @@ $(document).ready(function(){
 	// Function to display the GIF results that were searched for
 	
 	function displayGIFInfo() {
-		var gifSubject = $(this).attr("data-gif");																		// For this particular button that was clicked
-		var gifRating = $("#ratingLimit").val();																		// Get the Rating
-		var gifNumber = $("#numberLimit").val();																		// Get the Number
-		var queryURL = "https://api.giphy.com/v1/gifs/search?q="														// Set the queryURL for the API...
-			+ gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&rating=" + gifRating + "&limit=" + gifNumber;		// with the gifSubject and gifRating and with a limit of 10
+		var gifSubject = $(this).attr("data-gif");																// For this particular button that was clicked
+		var gifRating = $("#ratingLimit").val();																// Get the Rating
+		var gifNumber = $("#numberLimit").val();																// Get the Number
+		var randomOffset = Math.floor(Math.random() * 1000);													// Create a random offset so you get the same GIFs every time
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifSubject + "&offset=" + randomOffset		// Set the queryURL for the API with the gifSubject and randomOffset...
+			+ "&api_key=9ff99f6b61a7456292e1370adae07000&rating=" + gifRating + "&limit=" + gifNumber;			// and gifRating and with the set limit
 
 		$.ajax({
 			url: queryURL,
