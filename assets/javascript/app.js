@@ -65,12 +65,18 @@ $(document).ready(function(){
 
 
 
+	// Function to convert string to Title Case (cribbed from Stack Overflow)
+	function toTitleCase(str) {
+		return str.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	}
+
+
 	// Function to manage when a GIF search is added
 	
 	$("#addGIF").on("click", function(event) {
 		event.preventDefault();														// Prevent the Add button from behaving normally
 
-		var newGIF = $("#gifInput").val().trim();									// Get the search term that was added
+		var newGIF = toTitleCase($("#gifInput").val().trim());						// Get the search term that was added
 		var isMatch = false;														// Assume there is no match
 		if (newGIF !== "") {														// If the search term isn't blank...
 			for (var i = 0; i < buttonArray.length; i++) {							// Then for each message in buttonArray
