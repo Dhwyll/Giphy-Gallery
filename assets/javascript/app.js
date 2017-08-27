@@ -1,18 +1,10 @@
-// Create an array of pre-defined buttons
-// Push that array to the page
-// Allow the user to add a new button
-// When a button is clicked, clear the display area and add the top 10 gifs from Giphy for that category
-// when a GIF is clicked, animate it and when clicked again, still it
-
-
-
 $(document).ready(function(){
 
 	// Create the default button array and define the buttonStyling
 	
-	var buttonArray = ["Cats", "Dogs", "Fail", "Golden Girls"];
-	var buttonStyling = "<button class='btn btn-success buttonMargins' data-gif='";
-	$("#numberLimit").val(10);
+	var buttonArray = ["Cats", "Dogs", "Fail", "Golden Girls"];										// Set the original Button Array
+	var buttonStyling = "<button class='btn btn-success buttonMargins' data-gif='";					// Set the basic Button Styling
+	$("#numberLimit").val(10);																		// Set the default value of the Number Limit to 10;
 	
 	
 	// Function to display the GIF results that were searched for
@@ -20,7 +12,7 @@ $(document).ready(function(){
 	function displayGIFInfo() {
 		var gifSubject = $(this).attr("data-gif");																		// For this particular button that was clicked
 		var gifRating = $("#ratingLimit").val();																		// Get the Rating
-		var gifNumber = $("#numberLimit").val();																	// Get the Number
+		var gifNumber = $("#numberLimit").val();																		// Get the Number
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q="														// Set the queryURL for the API...
 			+ gifSubject + "&api_key=9ff99f6b61a7456292e1370adae07000&rating=" + gifRating + "&limit=" + gifNumber;		// with the gifSubject and gifRating and with a limit of 10
 
@@ -120,15 +112,15 @@ $(document).ready(function(){
 	
 	function gifAnimation() {
 
-		var state = $(this).attr("data-state");
+		var state = $(this).attr("data-state");										// Get the current state
 
-		if (state === "still") {
-			$(this).attr("data-state", "animate");
-			$(this).attr("src", $(this).attr("data-animate"));
+		if (state === "still") {													// If the GIF is currently still
+			$(this).attr("data-state", "animate");									// Set the state to animate
+			$(this).attr("src", $(this).attr("data-animate"));						// And load the animated GIF
 		}
-		else {
-			$(this).attr("data-state", "animate");
-			$(this).attr("src", $(this).attr("data-still"));
+		else {																		// Otherwise
+			$(this).attr("data-state", "still");									// Set the state to still
+			$(this).attr("src", $(this).attr("data-still"));						// And load the still GIF
 		}
 
 	}
