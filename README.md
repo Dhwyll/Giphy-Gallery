@@ -10,7 +10,7 @@ Additional functionality added to the base:
 * Shadowed buttons that animate when clicked
 * The ability to remove buttons from the list
 * Converting the input text to Title Case
-* Checking the input for duplication so no duplciate buttons
+* Checking the input for duplication so no duplicate buttons
 * Ignoring case when removing buttons
 * Adding the ability to adjust the rating level for returned GIFs
 * Adding the abiltiy to adjust how many items will be returned
